@@ -64,6 +64,9 @@ def find_antinodes1(antennas, max_x, max_y)
 
         b = other - diff
         antinodes.add(b) if in_range?(b, max_x, max_y)
+
+        # This neglects the possibility of having antinodes between the two, (i.e. other + 1/3 * diff, other + 2/3 * diff)
+        # but it doesn't seem to have mattered - presumably they've not ended up being integers
       end
     end
   end
@@ -82,6 +85,7 @@ def find_antinodes2(antennas, max_x, max_y)
 
         diff = antenna - other
 
+        # Not sure this is actually required for the input either
         if diff.x.zero?
           diff = Coordinate.new(0, diff.y / diff.y.abs)
         elsif diff.y.zero?
